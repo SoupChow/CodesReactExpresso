@@ -1,0 +1,383 @@
+Hello World
+//App.js
+import React from 'react';
+import './App.css';
+
+class App extends React.Component {
+ 
+    render() {
+        return (
+          <div id="header"><h2>Hello World</h2></div>
+        );
+    }
+};
+export default App;
+
+---------------------------------------------------------------------------
+Profile details app
+//Profile.js
+import React from 'react';
+function Profile(props){
+  return (
+    <div className="container">
+      <h1>TechCrunch</h1>
+      <div id="profile-info" className="profile-info">
+        <h2>{props.title}</h2>
+        <img id="profile-icon"src={props.profileicon}/>
+        <div id="profile-details">
+          {props.children}
+        </div>
+      </div>
+    </div>
+  );
+}
+export default Profile;
+
+//App.js
+import React from 'react';
+import Profile from './Profile.js';
+class App extends React.Component{
+  state={
+    title:'My Profile',
+    profileicon:require('./image/profileicon.png'),
+    name:'William',
+    email:'william@gmail.com',
+    mobilenumber:'8976541234',
+    age:27,
+    address:'Great Street,London',
+  }
+  render(){
+  const bodyStyle = {display:"block",textAlign:"-webkit-center"}
+  return (
+    <div style={bodyStyle}>
+      <Profile  title={this.state.title} profileicon={this.state.profileicon}>
+          <table>
+            <tr>
+              <td>Name:{this.state.name}</td>
+            </tr>
+            <tr>
+              <td>Email:{this.state.email}</td>
+            </tr>
+            <tr>
+              <td>Mobile:{this.state.mobilenumber}</td>
+            </tr>
+            <tr>
+              <td>Age:{this.state.age}</td>
+            </tr>
+            <tr>
+              <td>Address:{this.state.address}</td>
+            </tr>
+          </table>
+      </Profile>
+    </div>
+  )
+  }
+}
+export default App;
+----------------------------------------------------------------------------------------
+Phone Cart Details App
+//App.js
+import React from "react";
+import ProductList from "./ProductList.js";
+
+import "./App.css";
+
+class App extends React.Component {
+  render() {
+    return (
+      <>
+        <h2>Product World</h2>
+        <ProductList />
+      </>
+    );
+  }
+}
+export default App;
+
+//App.css
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+h2 {
+  padding: 5px;
+  margin: 2px;
+  text-align: center;
+}
+.products {
+  display: block;
+  margin-right: 100px;
+}
+
+.products li {
+  width: 350px;
+  list-style: none;
+  background: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 5px;
+}
+
+/* .products li:active,
+.products li:visited {
+  background-color: #87cefa;
+} */
+
+.products li img {
+  width: 100px;
+  border: 4px solid;
+}
+
+.products li p {
+  padding-left: 5px;
+}
+
+.product {
+  /* background-color: antiquewhite; */
+  width: fit-content;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 0px 3px 4px #919494;
+}
+
+.product img {
+  width: 100px;
+  box-shadow: 0px 0px 2px 2px #c1c7c7;
+}
+
+.product button {
+  background-color: #3a3b3a;
+  color: whitesmoke;
+  padding: 5px 100px;
+  margin: 2px;
+}
+
+.prod {
+  display: flex;
+  align-items: flex-start;
+}
+
+//ProductList.js
+import React, { Component } from "react";
+import Product from "./Product.js";
+
+const productsList = [
+  {
+    id: 1,
+    name: "Samsung Galaxy Note 10",
+    category: "Mobiles",
+    country: "Canada",
+    price: 11500,
+    currencyCode: "CAD",
+    productImage: require("./assets/img/product1.jpg"),
+  },
+  {
+    id: 5,
+    name: "SkullCandy BT Inkd Plus",
+    category: "Bluetooth Headset",
+    country: "UK",
+    price: 800,
+    currencyCode: "USD",
+    productImage: require("./assets/img/product2.jpg"),
+  },
+  {
+    id: 13,
+    name: "Anker Soundbuds Rise",
+    category: "Bluetooth Headset",
+    country: "Canada",
+    price: 600,
+    currencyCode: "CAD",
+    productImage: require("./assets/img/product3.jpg"),
+  },
+  {
+    id: 8,
+    name: "JBL Flip 3 Bluetooth speaker",
+    category: "Speakers",
+    country: "India",
+    price: 1400,
+    currencyCode: "INR",
+    productImage: require("./assets/img/product4.jpg"),
+  },
+  {
+    id: 10,
+    name: "Conekt Volt Power Bank",
+    category: "Power Bank",
+    country: "China",
+    price: 650,
+    currencyCode: "CNY",
+    productImage: require("./assets/img/product5.jpg"),
+  },
+  {
+    id: 18,
+    name: "Apple Watch Series",
+    category: "Watch",
+    country: "China",
+    price: 640,
+    currencyCode: "CNY",
+    productImage: require("./assets/img/product6.jpg"),
+  },
+  {
+    id: 20,
+    name: "IBall Slide Spirit X2",
+    category: "Tablets",
+    country: "India",
+    price: 9000,
+    currencyCode: "INR",
+    productImage: require("./assets/img/product7.jpg"),
+  },
+  {
+    id: 22,
+    name: "Skullcandy Set 2.0 ",
+    category: "Headset",
+    country: "China",
+    price: 900,
+    currencyCode: "CNY",
+    productImage: require("./assets/img/product8.jpg"),
+  },
+];
+
+export default class ProductList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      productsList,
+      displayProduct: "",
+    };
+    this.selectedProductItem = this.selectedProductItem.bind(this);
+  }
+
+  selectedProductItem(e) {
+    e.preventDefault();
+    const id = e.currentTarget.id.split("")[7];
+    this.setState({
+      ...this.state,
+      displayProduct: productsList[id],
+    });
+  }
+  render() {
+    return (
+      <div className="prod">
+        <ul className="products">
+          {productsList.map((product, i) => (
+            <li
+              key={product.id}
+              id={`product${i}`}
+              onClick={this.selectedProductItem}
+            >
+              <img id={`image${i}`} src={product.productImage} />
+              <p>{product.name}</p>
+            </li>
+          ))}
+        </ul>
+        {!!this.state.displayProduct && (
+          <Product product={this.state.displayProduct} />
+        )}
+      </div>
+    );
+  }
+}
+
+//Product.js
+import React, { Component } from "react";
+
+export default class Product extends Component {
+  render() {
+    return (
+      <div className="product">
+        <img src={this.props.product.productImage} id="prod-img" />
+        <h3 className="prod-name">{this.props.product.name}</h3>
+        <div className="prod-category">{`Category : ${this.props.product.category}`}</div>
+        <div className="prod-price">{`Price : $${this.props.product.price}`}</div>
+        <button>Add to card</button>
+      </div>
+    );
+  }
+}
+
+//index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter  basename={`${process.env.PUBLIC_URL}`}><App /></BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
+
+---------------------------------------------------------------------------------------------------------------------
+import React, { Component } from "react";
+import "./App.css";
+import { InputField } from "./lib/user/InputField";
+import { SelectField } from "./lib/user/SelectField";
+
+class App extends Component {
+  render = () => {
+    return (
+      <div class="container">
+        <InputField title="Text field 1" />
+        <SelectField title="Select field 1" />
+        <InputField title="Text field 2" />
+        <SelectField title="Select field 2" />
+        <InputField title="Text field 3" />
+        <SelectField title="Select field 3" />
+      </div>
+    );
+  };
+}
+export default App;
+
+//InputField.js
+import React from "react";
+
+export class InputField extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div className="field">
+        <label htmlFor="input">{this.props.title}</label>
+        <br />
+        <input name="input" placeholder="Type your text" type="text" />
+      </div>
+    );
+  }
+}
+
+//SelectField.js
+import React from "react";
+
+export class SelectField extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div className="field">
+        <label htmlFor="select">{this.props.title}</label>
+        <br />
+        <select name="select">
+          <option value="One">One</option>
+          <option value="Two">Two</option>
+          <option value="Three">Three</option>
+        </select>
+      </div>
+    );
+  }
+}
+
+

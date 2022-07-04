@@ -1,0 +1,157 @@
+The Evenire(200 400 status code)
+//app.js
+var express = require('express')
+var app = express()
+app.set('port', process.env.PORT || 3000)
+
+
+app.get('/index', (req, res) => {
+    res.status(200).sendFile(__dirname + '/index.html');
+});
+
+app.use((req, res, next) => {
+    res.status(400).send('Invalid URL');
+});
+
+app.listen(app.get('port'))
+
+//index.html
+<html>
+    <body>
+        <h1>The Evenire</h1>
+        <p>For a successful event</p>
+    <body>
+</html>
+
+------------------------------------------------------------------------
+Event management with image
+//app.js
+var express = require('express');
+var app = express();
+app.set('port', process.env.PORT || 3000)
+
+app.get('/', (req,res)=>{
+    res.status(200).sendFile(__dirname+'/index.html');
+})
+app.use((req,res,next)=>{
+    res.status(400).send('Invalid URL');
+});
+
+app.listen(app.get('port'))
+
+//index.html
+<html>
+    <body>
+        <h1>Event Management</h1>
+        <img src='evenire.jpg'>
+        <p id="content1">The Evenire is a strong and fast growing organisation with high level of standardization. Often we take event management as a part of project management, but we consider that event management has very specific concepts and issues, and needs further developed methods and tools.</p>
+        <p id="content2">We classify events, we compare project management and event management, we reconsider standards in both areas, and discuss perspectives for a stronger standardization of event management in the future.</p>
+    <body>
+</html>
+
+---------------------------------------------------------------------------------------
+//app.js
+var express = require('express');
+var app = express();
+var path = require('path');
+app.use(express.static(__dirname))
+app.set('port', process.env.PORT || 3000)
+
+const eventDetails = {
+   "events" : [
+    {'eventId': 111, 'eventName':'A-Z Planning', 'eventDate':'2019-12-15', 'eventLocation':'Chennai'},
+    {'eventId': 112, 'eventName':'Creative Corner', 'eventDate':'2019-07-05', 'eventLocation':'Erode'},
+    {'eventId': 113, 'eventName':'DreamTeam', 'eventDate':'2019-06-07', 'eventLocation':'Salem'},
+    {'eventId': 114, 'eventName':'Unique Planners', 'eventDate':'2019-11-10', 'eventLocation':'Bangalore'},
+    {'eventId': 115, 'eventName':'Last Moment Savers', 'eventDate':'2019-07-05', 'eventLocation':'Erode'}
+    ]
+}
+
+app.get('/events/:id', (req, res) => {
+    var flag = 0;
+    for (var i = 0; i < eventDetails.events.length; i++){
+        if (eventDetails.events[i].eventId == req.params.id) {
+            flag = 1;
+            res.send(
+                `<body>
+                <h1>Event Details</h1>
+                <p>Event Id - ${eventDetails.events[i].eventId}</p>
+                <p>Event Name - ${eventDetails.events[i].eventName}</p>
+                <p>Event Date - ${eventDetails.events[i].eventDate}</p>
+                <p>Event Location - ${eventDetails.events[i].eventLocation}</p>
+                </body>`)
+        }
+    }
+    if (flag == 0) {
+        res.send('This is an invalid URL');
+    }
+})
+
+app.listen(app.get('port'), () => {
+    console.log("See at Port 3000");
+})
+
+
+---------------------------------------------------------------------------------------
+//app.js
+var express = require('express');
+var app = express();
+var path = require('path');
+app.use(express.static(__dirname))
+app.set('port', process.env.PORT || 3000)
+
+app.get('/home', (req, res) => {
+    res.sendFile(__dirname + '/home.html')
+})
+
+app.get('/list', (req, res) => {
+    res.sendFile(__dirname + '/list.html')
+})
+
+app.listen(app.get('port'))
+
+//home.html
+<html>
+    <body>
+
+        <div style="padding: 2px; background-color: #7a6fc7; color: #fff; text-align: center; margin: auto;">
+            <h1>Event Management</h1>
+        </div>
+
+        <div style="text-align: center; margin: 20px;">
+            <img src="event_management.jpg">
+        </div>
+
+       <p id="content">
+        The Evenire is a strong and fast growing organisation with high level of standardization. Often we take event management as a part of project management, but we consider that event management has very specific concepts and issues, and needs further developed methods and tools.
+       </p>
+
+       <div style="font-weight: bold;">
+           Some of these events are listed below:
+       </div>
+
+       <a href="list" id="list">LIST OF EVENTS</a>
+    </body>
+</html>
+
+//list.html
+<html>
+    <body>
+        <div style="padding: 2px; background-color: #7a6fc7; color: #fff; text-align: center; margin: auto;">
+            <h1>Event List</h1>
+        </div>
+
+        <ol type="1" id="eventlist">
+            <li>Dazzle coding : Keep the screen of and request that the contender code a program.</li>
+            <li>Graphic Design: They can bring the best logo or the graphics design.</li>
+            <li>Googler : Ask contender to Google look through a portion of the irregular things.</li>
+            <li>Coding challenge : Ask them to write specific codes.</li>
+            <li>Developers Date : Ask a Female coder to cooperate with a Male Programmer and go on a programming date, which will be an over night Hackathon.</li>
+            <li>Seminars : Invite industry experts to talk on drifting tech advancement.</li>
+            <li>Guidance : Programming and Hardware guidance and arrangement.</li>
+            <li>Lectures : Lectures on most recent device appear and technology used in that device.</li>
+            <li>workshops : Arrange workshops for different subjects such as Digital Marketing, Digital Security, Big Data, etc</li>
+        </ol>
+
+    </body>
+</html>
